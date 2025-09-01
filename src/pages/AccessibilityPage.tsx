@@ -1,6 +1,6 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
-import { ArrowRight, Eye, Ear, Hand, Brain, Phone, Mail } from 'lucide-react';
+import { ArrowRight, Shield, Eye, Ear, Hand, Brain, Phone, Mail } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 export function AccessibilityPage() {
@@ -20,7 +20,7 @@ export function AccessibilityPage() {
             <nav className="flex items-center space-x-reverse space-x-2 text-sm">
               <Link to="/" className="text-blue-600 hover:text-blue-800">בית</Link>
               <ArrowRight className="w-4 h-4 text-gray-400 rotate-180" />
-              <span className="text-gray-500">הצהרת נגישות</span>
+              <span className="text-gray-900 font-medium">הצהרת נגישות</span>
             </nav>
           </div>
         </div>
@@ -30,7 +30,7 @@ export function AccessibilityPage() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <div className="flex items-center justify-center space-x-reverse space-x-2 mb-4">
               <Shield className="w-8 h-8 text-blue-600" />
-              <span className="text-lg font-medium text-gray-600">הגנה על הפרטיות שלכם</span>
+              <span className="text-lg font-medium text-gray-600">נגישות לכולם</span>
             </div>
             <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
               הצהרת נגישות
@@ -185,6 +185,4 @@ export function AccessibilityPage() {
       </div>
     </>
   );
-}
-  )
 }
