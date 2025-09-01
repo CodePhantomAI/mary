@@ -20,7 +20,11 @@ export function AccessibilityPage() {
             <nav className="flex items-center space-x-reverse space-x-2 text-sm">
               <Link to="/" className="text-blue-600 hover:text-blue-800">בית</Link>
               <ArrowRight className="w-4 h-4 text-gray-400 rotate-180" />
+              <span className="text-gray-500">הצהרת נגישות</span>
             </nav>
+          </div>
+        </div>
+        
         {/* Header */}
         <section className="py-16 bg-gradient-to-br from-blue-50 to-indigo-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
