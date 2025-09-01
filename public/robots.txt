@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+
+# Allow crawling of CSS and JS files
+Allow: /assets/
+Allow: /*.css
+Allow: /*.js
+
+# Disallow admin or private areas (if any)
+# Disallow: /admin/
+# Disallow: /private/
+
+# Sitemap location
+Sitemap: https://jerusalemproposals.co.il/sitemap.xml
+
+# Crawl-delay (optional, for heavy crawlers)
+Crawl-delay: 1
