@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import { useParams, Link } from 'react-router-dom';
 import { ArrowRight, Clock, Users, Camera, MapPin, Star, Shield } from 'lucide-react';
 
@@ -64,184 +65,214 @@ export function LocationPage() {
 
   if (!currentLocation) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="text-center">
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">לוקיישן לא נמצא</h1>
-          <Link to="/" className="text-blue-600 hover:text-blue-800">חזרה לדף הבית</Link>
+      <>
+        <Helmet>
+          <title>לוקיישן לא נמצא - 404 | הצעות נישואים ירושלים</title>
+          <meta name="robots" content="noindex, nofollow" />
+        </Helmet>
+        <div className="min-h-screen flex items-center justify-center">
+          <div className="text-center">
+            <h1 className="text-3xl font-bold text-gray-900 mb-4">לוקיישן לא נמצא</h1>
+            <Link to="/" className="text-blue-600 hover:text-blue-800">חזרה לדף הבית</Link>
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Breadcrumb */}
-      <div className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <nav className="flex items-center space-x-reverse space-x-2 text-sm">
-            <Link to="/" className="text-blue-600 hover:text-blue-800">בית</Link>
-            <ArrowRight className="w-4 h-4 text-gray-400 rotate-180" />
-            <span className="text-gray-600">לוקיישנים</span>
-            <ArrowRight className="w-4 h-4 text-gray-400 rotate-180" />
-            <span className="text-gray-900 font-medium">{currentLocation.name}</span>
-          </nav>
+    <>
+      <Helmet>
+        <title>{currentLocation.title}</title>
+        <meta name="description" content={currentLocation.description} />
+        <link rel="canonical" href={`https://jerusalemproposals.co.il/locations/${location}`} />
+        
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "TouristAttraction",
+            "name": currentLocation.name,
+            "description": currentLocation.description,
+            "url": `https://jerusalemproposals.co.il/locations/${location}`,
+            "image": currentLocation.image,
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "ירושלים",
+              "addressCountry": "IL"
+            }
+          })}
+        </script>
+      </Helmet>
+      
+      <div className="min-h-screen bg-gray-50">
+        {/* Breadcrumb */}
+        <div className="bg-white border-b border-gray-200">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <nav className="flex items-center space-x-reverse space-x-2 text-sm">
+              <Link to="/" className="text-blue-600 hover:text-blue-800">בית</Link>
+              <ArrowRight className="w-4 h-4 text-gray-400 rotate-180" />
+              <span className="text-gray-600">לוקיישנים</span>
+              <ArrowRight className="w-4 h-4 text-gray-400 rotate-180" />
+              <span className="text-gray-900 font-medium">{currentLocation.name}</span>
+            </nav>
+          </div>
         </div>
-      </div>
 
-      {/* Hero Section */}
-      <section className="relative h-96 overflow-hidden">
-        <h1 className="sr-only">
-          הצעת נישואין ב{currentLocation.name} - {currentLocation.description}
-        </h1>
-        <img
-          src={currentLocation.image}
-          alt={`הצעת נישואין ב${currentLocation.name}`}
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" />
-        <div className="absolute bottom-0 right-0 left-0 p-8">
-          <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
-            {currentLocation.name}
-          </h2>
-          <p className="text-xl text-white/90 max-w-3xl">
-            {currentLocation.description}
-          </p>
-        </div>
-      </section>
+        {/* Hero Section */}
+        <section className="relative h-96 overflow-hidden">
+          <h1 className="sr-only">
+            הצעת נישואין ב{currentLocation.name} - {currentLocation.description}
+          </h1>
+          <img
+            src={currentLocation.image}
+            alt={`הצעת נישואין ב${currentLocation.name}`}
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-transparent" />
+          <div className="absolute bottom-0 right-0 left-0 p-8">
+            <h2 className="text-4xl sm:text-5xl font-bold text-white mb-4">
+              {currentLocation.name}
+            </h2>
+            <p className="text-xl text-white/90 max-w-3xl">
+              {currentLocation.description}
+            </p>
+          </div>
+        </section>
 
-      {/* Content */}
-      <section className="py-16">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-            {/* Main Content */}
-            <div className="lg:col-span-2 space-y-8">
-              {/* Quick Info */}
-              <div className="bg-white rounded-2xl shadow-lg p-8">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">מידע מהיר</h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  <div className="flex items-center space-x-reverse space-x-3">
-                    <Clock className="w-6 h-6 text-blue-600" />
-                    <div>
-                      <div className="font-semibold text-gray-900">זמנים מומלצים</div>
-                      <div className="text-gray-600 text-sm">
-                        {currentLocation.bestTimes.join(', ')}
+        {/* Content */}
+        <section className="py-16">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+              {/* Main Content */}
+              <div className="lg:col-span-2 space-y-8">
+                {/* Quick Info */}
+                <div className="bg-white rounded-2xl shadow-lg p-8">
+                  <h2 className="text-2xl font-bold text-gray-900 mb-6">מידע מהיר</h2>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div className="flex items-center space-x-reverse space-x-3">
+                      <Clock className="w-6 h-6 text-blue-600" />
+                      <div>
+                        <div className="font-semibold text-gray-900">זמנים מומלצים</div>
+                        <div className="text-gray-600 text-sm">
+                          {currentLocation.bestTimes.join(', ')}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="flex items-center space-x-reverse space-x-3">
+                      <Users className="w-6 h-6 text-blue-600" />
+                      <div>
+                        <div className="font-semibold text-gray-900">רמת עומס</div>
+                        <div className="text-gray-600 text-sm">{currentLocation.crowdLevel}</div>
+                      </div>
+                    </div>
+                    <div className="flex items-center space-x-reverse space-x-3">
+                      <Shield className="w-6 h-6 text-blue-600" />
+                      <div>
+                        <div className="font-semibold text-gray-900">אישורים</div>
+                        <div className="text-gray-600 text-sm">{currentLocation.permits}</div>
+                      </div>
+                    </div>
+                    <div className="flex items-center space-x-reverse space-x-3">
+                      <Camera className="w-6 h-6 text-blue-600" />
+                      <div>
+                        <div className="font-semibold text-gray-900">צילום</div>
+                        <div className="text-gray-600 text-sm">מותר וממולץ</div>
                       </div>
                     </div>
                   </div>
-                  <div className="flex items-center space-x-reverse space-x-3">
-                    <Users className="w-6 h-6 text-blue-600" />
-                    <div>
-                      <div className="font-semibold text-gray-900">רמת עומס</div>
-                      <div className="text-gray-600 text-sm">{currentLocation.crowdLevel}</div>
-                    </div>
-                  </div>
-                  <div className="flex items-center space-x-reverse space-x-3">
-                    <Shield className="w-6 h-6 text-blue-600" />
-                    <div>
-                      <div className="font-semibold text-gray-900">אישורים</div>
-                      <div className="text-gray-600 text-sm">{currentLocation.permits}</div>
-                    </div>
-                  </div>
-                  <div className="flex items-center space-x-reverse space-x-3">
-                    <Camera className="w-6 h-6 text-blue-600" />
-                    <div>
-                      <div className="font-semibold text-gray-900">צילום</div>
-                      <div className="text-gray-600 text-sm">מותר וממולץ</div>
-                    </div>
-                  </div>
                 </div>
-              </div>
 
-              {/* Features */}
-              <div className="bg-white rounded-2xl shadow-lg p-8">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">מה מיוחד במקום הזה</h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {currentLocation.features.map((feature: string, index: number) => (
-                    <div key={index} className="flex items-center space-x-reverse space-x-3">
-                      <Star className="w-5 h-5 text-yellow-500" fill="currentColor" />
-                      <span className="text-gray-700">{feature}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Tips */}
-              <div className="bg-white rounded-2xl shadow-lg p-8">
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">טיפים חשובים</h2>
-                <div className="space-y-3">
-                  {currentLocation.tips.map((tip: string, index: number) => (
-                    <div key={index} className="flex items-start space-x-reverse space-x-3">
-                      <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center mt-0.5">
-                        <span className="text-blue-600 font-bold text-xs">{index + 1}</span>
+                {/* Features */}
+                <div className="bg-white rounded-2xl shadow-lg p-8">
+                  <h2 className="text-2xl font-bold text-gray-900 mb-6">מה מיוחד במקום הזה</h2>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    {currentLocation.features.map((feature: string, index: number) => (
+                      <div key={index} className="flex items-center space-x-reverse space-x-3">
+                        <Star className="w-5 h-5 text-yellow-500" fill="currentColor" />
+                        <span className="text-gray-700">{feature}</span>
                       </div>
-                      <span className="text-gray-700">{tip}</span>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
+                </div>
+
+                {/* Tips */}
+                <div className="bg-white rounded-2xl shadow-lg p-8">
+                  <h2 className="text-2xl font-bold text-gray-900 mb-6">טיפים חשובים</h2>
+                  <div className="space-y-3">
+                    {currentLocation.tips.map((tip: string, index: number) => (
+                      <div key={index} className="flex items-start space-x-reverse space-x-3">
+                        <div className="w-6 h-6 bg-blue-100 rounded-full flex items-center justify-center mt-0.5">
+                          <span className="text-blue-600 font-bold text-xs">{index + 1}</span>
+                        </div>
+                        <span className="text-gray-700">{tip}</span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* Sidebar */}
-            <div className="space-y-8">
-              {/* Gallery Preview */}
-              <div className="bg-white rounded-2xl shadow-lg p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">גלריית תמונות</h3>
-                <div className="grid grid-cols-1 gap-4">
-                  {currentLocation.gallery.map((image: string, index: number) => (
-                    <img
-                      key={index}
-                      src={image}
-                      alt={`הצעת נישואין ב${currentLocation.name} - תמונה ${index + 1}`}
-                      className="w-full h-32 object-cover rounded-xl"
-                    />
-                  ))}
+              {/* Sidebar */}
+              <div className="space-y-8">
+                {/* Gallery Preview */}
+                <div className="bg-white rounded-2xl shadow-lg p-6">
+                  <h3 className="text-xl font-bold text-gray-900 mb-4">גלריית תמונות</h3>
+                  <div className="grid grid-cols-1 gap-4">
+                    {currentLocation.gallery.map((image: string, index: number) => (
+                      <img
+                        key={index}
+                        src={image}
+                        alt={`הצעת נישואין ב${currentLocation.name} - תמונה ${index + 1}`}
+                        className="w-full h-32 object-cover rounded-xl"
+                      />
+                    ))}
+                  </div>
+                  <Link
+                    to="/gallery"
+                    className="block text-center mt-4 text-blue-600 hover:text-blue-800 font-medium"
+                  >
+                    צפו בגלריה המלאה
+                  </Link>
                 </div>
-                <Link
-                  to="/gallery"
-                  className="block text-center mt-4 text-blue-600 hover:text-blue-800 font-medium"
-                >
-                  צפו בגלריה המלאה
-                </Link>
-              </div>
 
-              {/* CTA */}
-              <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl shadow-lg p-8 text-white text-center">
-                <h3 className="text-2xl font-bold mb-4">מעוניינים בלוקיישן הזה?</h3>
-                <p className="mb-6 text-blue-100">
-                  בואו נתכנן ביחד את הרגע המושלם ב{currentLocation.name}
-                </p>
-                <Link
-                  to="/contact"
-                  className="block bg-white text-blue-700 py-3 px-6 rounded-xl font-bold hover:bg-gray-100 transition-colors duration-200"
-                >
-                  קבעו פגישת ייעוץ
-                </Link>
-              </div>
+                {/* CTA */}
+                <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl shadow-lg p-8 text-white text-center">
+                  <h3 className="text-2xl font-bold mb-4">מעוניינים בלוקיישן הזה?</h3>
+                  <p className="mb-6 text-blue-100">
+                    בואו נתכנן ביחד את הרגע המושלם ב{currentLocation.name}
+                  </p>
+                  <Link
+                    to="/contact"
+                    className="block bg-white text-blue-700 py-3 px-6 rounded-xl font-bold hover:bg-gray-100 transition-colors duration-200"
+                  >
+                    קבעו פגישת ייעוץ
+                  </Link>
+                </div>
 
-              {/* Related Locations */}
-              <div className="bg-white rounded-2xl shadow-lg p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">לוקיישנים נוספים</h3>
-                <div className="space-y-3">
-                  <Link
-                    to="/locations/yemin-moshe"
-                    className="flex items-center space-x-reverse space-x-3 p-3 hover:bg-gray-50 rounded-xl transition-colors duration-200"
-                  >
-                    <MapPin className="w-5 h-5 text-blue-600" />
-                    <span className="text-gray-700">ימין משה</span>
-                  </Link>
-                  <Link
-                    to="/locations/promenade"
-                    className="flex items-center space-x-reverse space-x-3 p-3 hover:bg-gray-50 rounded-xl transition-colors duration-200"
-                  >
-                    <MapPin className="w-5 h-5 text-blue-600" />
-                    <span className="text-gray-700">טיילת ארמון הנציב</span>
-                  </Link>
+                {/* Related Locations */}
+                <div className="bg-white rounded-2xl shadow-lg p-6">
+                  <h3 className="text-xl font-bold text-gray-900 mb-4">לוקיישנים נוספים</h3>
+                  <div className="space-y-3">
+                    <Link
+                      to="/locations/yemin-moshe"
+                      className="flex items-center space-x-reverse space-x-3 p-3 hover:bg-gray-50 rounded-xl transition-colors duration-200"
+                    >
+                      <MapPin className="w-5 h-5 text-blue-600" />
+                      <span className="text-gray-700">ימין משה</span>
+                    </Link>
+                    <Link
+                      to="/locations/promenade"
+                      className="flex items-center space-x-reverse space-x-3 p-3 hover:bg-gray-50 rounded-xl transition-colors duration-200"
+                    >
+                      <MapPin className="w-5 h-5 text-blue-600" />
+                      <span className="text-gray-700">טיילת ארמון הנציב</span>
+                    </Link>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-      </section>
-    </div>
+        </section>
+      </div>
+    </>
   );
 }

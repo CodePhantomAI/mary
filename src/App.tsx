@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { CookieConsent } from './components/CookieConsent';
 import { HomePage } from './pages/HomePage';
+import { ContactPage } from './pages/ContactPage';
 import { LocationPage } from './pages/LocationPage';
 import { PackagesPage } from './pages/PackagesPage';
 import { GalleryPage } from './pages/GalleryPage';
@@ -16,29 +16,28 @@ import { FloatingActions } from './components/FloatingActions';
 
 function App() {
   return (
-    <HelmetProvider>
-      <Router>
-        <div className="min-h-screen bg-gray-50">
-          <Header />
-          <main className="pt-20">
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/locations/:location" element={<LocationPage />} />
-              <Route path="/packages" element={<PackagesPage />} />
-              <Route path="/gallery" element={<GalleryPage />} />
-              <Route path="/testimonials" element={<TestimonialsPage />} />
-              <Route path="/blog" element={<BlogPage />} />
-              <Route path="/accessibility" element={<AccessibilityPage />} />
-              <Route path="/privacy" element={<PrivacyPage />} />
-              <Route path="*" element={<NotFoundPage />} />
-            </Routes>
-          </main>
-          <Footer />
-          <FloatingActions />
-          <CookieConsent />
-        </div>
-      </Router>
-    </HelmetProvider>
+    <Router>
+      <div className="min-h-screen bg-gray-50">
+        <Header />
+        <main className="pt-20">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/locations/:location" element={<LocationPage />} />
+            <Route path="/packages" element={<PackagesPage />} />
+            <Route path="/gallery" element={<GalleryPage />} />
+            <Route path="/testimonials" element={<TestimonialsPage />} />
+            <Route path="/blog" element={<BlogPage />} />
+            <Route path="/accessibility" element={<AccessibilityPage />} />
+            <Route path="/privacy" element={<PrivacyPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </main>
+        <Footer />
+        <FloatingActions />
+        <CookieConsent />
+      </div>
+    </Router>
   );
 }
 
@@ -46,10 +45,6 @@ function App() {
 function NotFoundPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">
-      <Helmet>
-        <title>דף לא נמצא - 404 | הצעות נישואים ירושלים</title>
-        <meta name="robots" content="noindex, nofollow" />
-      </Helmet>
       <div className="text-center">
         <h1 className="text-6xl font-bold text-gray-900 mb-4">404</h1>
         <h2 className="text-2xl font-semibold text-gray-700 mb-4">הדף לא נמצא</h2>
@@ -64,4 +59,5 @@ function NotFoundPage() {
     </div>
   );
 }
+
 export default App;

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Helmet } from 'react-helmet-async';
 import { ArrowRight, Star, Heart, Quote, MapPin, Calendar } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -73,129 +74,165 @@ export function TestimonialsPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Breadcrumb */}
-      <div className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <nav className="flex items-center space-x-reverse space-x-2 text-sm">
-            <Link to="/" className="text-blue-600 hover:text-blue-800">בית</Link>
-            <ArrowRight className="w-4 h-4 text-gray-400 rotate-180" />
-            <span className="text-gray-900 font-medium">עדויות לקוחות</span>
-          </nav>
-        </div>
-      </div>
-
-      {/* Header */}
-      <section className="py-16 bg-gradient-to-br from-blue-50 to-indigo-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="flex items-center justify-center space-x-reverse space-x-2 mb-4">
-            <Heart className="w-8 h-8 text-red-500" fill="currentColor" />
-            <span className="text-lg font-medium text-gray-600">סיפורי אהבה אמיתיים</span>
+    <>
+      <Helmet>
+        <title>עדויות לקוחות - הצעות נישואין בירושלים | ביקורות אמיתיות</title>
+        <meta name="description" content="קראו עדויות אמיתיות של לקוחות מרוצים מהצעות נישואין בירושלים. דירוג 5 כוכבים, 150+ הצעות מוצלחות. סיפורי הצלחה מכותל, ימין משה וטיילת ארמון הנציב." />
+        <link rel="canonical" href="https://jerusalemproposals.co.il/testimonials" />
+        
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "הצעות נישואים ירושלים",
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "5",
+              "reviewCount": testimonials.length,
+              "bestRating": "5",
+              "worstRating": "5"
+            },
+            "review": testimonials.map(testimonial => ({
+              "@type": "Review",
+              "author": {
+                "@type": "Person",
+                "name": testimonial.name
+              },
+              "reviewRating": {
+                "@type": "Rating",
+                "ratingValue": testimonial.rating,
+                "bestRating": "5"
+              },
+              "reviewBody": testimonial.text
+            }))
+          })}
+        </script>
+      </Helmet>
+      
+      <div className="min-h-screen bg-gray-50">
+        {/* Breadcrumb */}
+        <div className="bg-white border-b border-gray-200">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <nav className="flex items-center space-x-reverse space-x-2 text-sm">
+              <Link to="/" className="text-blue-600 hover:text-blue-800">בית</Link>
+              <ArrowRight className="w-4 h-4 text-gray-400 rotate-180" />
+              <span className="text-gray-900 font-medium">עדויות לקוחות</span>
+            </nav>
           </div>
-          <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
-            מה הלקוחות שלנו אומרים
-          </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            כל הצעה היא סיפור ייחודי, וכל זוג יוצא מרוצה ומאושר. הנה חלק מהסיפורים שלהם
-          </p>
         </div>
-      </section>
 
-      {/* Testimonials */}
-      <section className="pb-20">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="space-y-8">
-            {testimonials.map((testimonial, index) => (
-              <div
-                key={testimonial.id}
-                className={`bg-white rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 ${
-                  index % 2 === 0 ? '' : 'lg:flex-row-reverse'
-                }`}
-              >
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                  {/* Image */}
-                  <div className={`${index % 2 === 0 ? 'lg:order-1' : 'lg:order-2'}`}>
-                    <img
-                      src={testimonial.image}
-                      alt={`${testimonial.name} - הצעת נישואין`}
-                      className="w-full h-80 lg:h-full object-cover"
-                    />
-                  </div>
+        {/* Header */}
+        <section className="py-16 bg-gradient-to-br from-blue-50 to-indigo-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div className="flex items-center justify-center space-x-reverse space-x-2 mb-4">
+              <Heart className="w-8 h-8 text-red-500" fill="currentColor" />
+              <span className="text-lg font-medium text-gray-600">סיפורי אהבה אמיתיים</span>
+            </div>
+            <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
+              מה הלקוחות שלנו אומרים
+            </h1>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              כל הצעה היא סיפור ייחודי, וכל זוג יוצא מרוצה ומאושר. הנה חלק מהסיפורים שלהם
+            </p>
+          </div>
+        </section>
 
-                  {/* Content */}
-                  <div className={`p-8 lg:p-12 flex flex-col justify-center ${index % 2 === 0 ? 'lg:order-2' : 'lg:order-1'}`}>
-                    <div className="flex items-center mb-6">
+        {/* Testimonials */}
+        <section className="pb-20">
+          <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="space-y-8">
+              {testimonials.map((testimonial, index) => (
+                <div
+                  key={testimonial.id}
+                  className={`bg-white rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-300 ${
+                    index % 2 === 0 ? '' : 'lg:flex-row-reverse'
+                  }`}
+                >
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    {/* Image */}
+                    <div className={`${index % 2 === 0 ? 'lg:order-1' : 'lg:order-2'}`}>
                       <img
                         src={testimonial.image}
-                        alt={testimonial.name}
-                        className="w-16 h-16 rounded-full object-cover ml-4"
+                        alt={`${testimonial.name} - הצעת נישואין`}
+                        className="w-full h-80 lg:h-full object-cover"
                       />
-                      <div>
-                        <h3 className="text-xl font-bold text-gray-900">{testimonial.name}</h3>
-                        <div className="flex items-center space-x-reverse space-x-2 mt-1">
-                          <MapPin className="w-4 h-4 text-gray-400" />
-                          <span className="text-gray-600 text-sm">{testimonial.location}</span>
-                        </div>
-                        <div className="flex items-center space-x-reverse space-x-2 mt-1">
-                          <Calendar className="w-4 h-4 text-gray-400" />
-                          <span className="text-gray-600 text-sm">{testimonial.date}</span>
+                    </div>
+
+                    {/* Content */}
+                    <div className={`p-8 lg:p-12 flex flex-col justify-center ${index % 2 === 0 ? 'lg:order-2' : 'lg:order-1'}`}>
+                      <div className="flex items-center mb-6">
+                        <img
+                          src={testimonial.image}
+                          alt={testimonial.name}
+                          className="w-16 h-16 rounded-full object-cover ml-4"
+                        />
+                        <div>
+                          <h3 className="text-xl font-bold text-gray-900">{testimonial.name}</h3>
+                          <div className="flex items-center space-x-reverse space-x-2 mt-1">
+                            <MapPin className="w-4 h-4 text-gray-400" />
+                            <span className="text-gray-600 text-sm">{testimonial.location}</span>
+                          </div>
+                          <div className="flex items-center space-x-reverse space-x-2 mt-1">
+                            <Calendar className="w-4 h-4 text-gray-400" />
+                            <span className="text-gray-600 text-sm">{testimonial.date}</span>
+                          </div>
                         </div>
                       </div>
-                    </div>
 
-                    <div className="flex space-x-1 mb-4">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="w-5 h-5 text-yellow-400" fill="currentColor" />
-                      ))}
-                    </div>
+                      <div className="flex space-x-1 mb-4">
+                        {[...Array(testimonial.rating)].map((_, i) => (
+                          <Star key={i} className="w-5 h-5 text-yellow-400" fill="currentColor" />
+                        ))}
+                      </div>
 
-                    <div className="relative mb-6">
-                      <Quote className="w-8 h-8 text-blue-200 absolute -top-2 -right-2" />
-                      <p className="text-gray-700 leading-relaxed text-lg italic">
-                        "{testimonial.text}"
-                      </p>
-                    </div>
+                      <div className="relative mb-6">
+                        <Quote className="w-8 h-8 text-blue-200 absolute -top-2 -right-2" />
+                        <p className="text-gray-700 leading-relaxed text-lg italic">
+                          "{testimonial.text}"
+                        </p>
+                      </div>
 
-                    <div className="flex flex-wrap gap-2 mb-6">
-                      {testimonial.highlights.map((highlight, idx) => (
-                        <span
-                          key={idx}
-                          className="px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded-full font-medium"
-                        >
-                          {highlight}
-                        </span>
-                      ))}
-                    </div>
+                      <div className="flex flex-wrap gap-2 mb-6">
+                        {testimonial.highlights.map((highlight, idx) => (
+                          <span
+                            key={idx}
+                            className="px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded-full font-medium"
+                          >
+                            {highlight}
+                          </span>
+                        ))}
+                      </div>
 
-                    <div className="flex items-center space-x-reverse space-x-2 text-sm text-gray-500">
-                      <span>חבילה: {testimonial.package}</span>
+                      <div className="flex items-center space-x-reverse space-x-2 text-sm text-gray-500">
+                        <span>חבילה: {testimonial.package}</span>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
 
-          {/* CTA Section */}
-          <div className="mt-16 text-center">
-            <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-3xl shadow-xl p-8 lg:p-12 text-white">
-              <h2 className="text-3xl font-bold mb-4">
-                רוצים להיות הסיפור הבא שלנו?
-              </h2>
-              <p className="text-xl text-blue-100 mb-8 max-w-3xl mx-auto">
-                כל זוג מקבל את מלוא תשומת הלב שלנו ויוצא עם סיפור מושלם לספר
-              </p>
-              <Link
-                to="/contact"
-                className="inline-flex items-center space-x-reverse space-x-2 bg-white text-blue-700 px-8 py-4 rounded-xl hover:bg-gray-100 transition-all duration-300 hover:shadow-lg font-bold text-lg"
-              >
-                <span>בואו נתכנן את הסיפור שלכם</span>
-                <ArrowRight className="w-5 h-5 rotate-180" />
-              </Link>
+            {/* CTA Section */}
+            <div className="mt-16 text-center">
+              <div className="bg-gradient-to-br from-blue-600 to-blue-700 rounded-3xl shadow-xl p-8 lg:p-12 text-white">
+                <h2 className="text-3xl font-bold mb-4">
+                  רוצים להיות הסיפור הבא שלנו?
+                </h2>
+                <p className="text-xl text-blue-100 mb-8 max-w-3xl mx-auto">
+                  כל זוג מקבל את מלוא תשומת הלב שלנו ויוצא עם סיפור מושלם לספר
+                </p>
+                <Link
+                  to="/contact"
+                  className="inline-flex items-center space-x-reverse space-x-2 bg-white text-blue-700 px-8 py-4 rounded-xl hover:bg-gray-100 transition-all duration-300 hover:shadow-lg font-bold text-lg"
+                >
+                  <span>בואו נתכנן את הסיפור שלכם</span>
+                  <ArrowRight className="w-5 h-5 rotate-180" />
+                </Link>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
-    </div>
+        </section>
+      </div>
+    </>
   );
 }

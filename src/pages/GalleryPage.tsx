@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import { ArrowRight, Heart, Play, X } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -87,127 +88,145 @@ export function GalleryPage() {
     : galleryItems.filter(item => item.type === activeCategory);
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Breadcrumb */}
-      <div className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          <nav className="flex items-center space-x-reverse space-x-2 text-sm">
-            <Link to="/" className="text-blue-600 hover:text-blue-800">בית</Link>
-            <ArrowRight className="w-4 h-4 text-gray-400 rotate-180" />
-            <span className="text-gray-900 font-medium">גלריה</span>
-          </nav>
-        </div>
-      </div>
-
-      {/* Header */}
-      <section className="py-16 bg-gradient-to-br from-blue-50 to-indigo-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="flex items-center justify-center space-x-reverse space-x-2 mb-4">
-            <Heart className="w-8 h-8 text-red-500" fill="currentColor" />
-            <span className="text-lg font-medium text-gray-600">רגעים מיוחדים</span>
-          </div>
-          <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
-            גלריית הצעות נישואין
-          </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            כל תמונה מספרת סיפור של אהבה, רגש והרגע הכי חשוב בחיים
-          </p>
-        </div>
-      </section>
-
-      {/* Category Filter */}
-      <section className="py-8">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-center space-x-reverse space-x-4">
-            {categories.map((category) => (
-              <button
-                key={category.id}
-                onClick={() => setActiveCategory(category.id)}
-                className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
-                  activeCategory === category.id
-                    ? 'bg-blue-800 text-white shadow-lg'
-                    : 'bg-white text-gray-700 hover:bg-gray-50 shadow-sm'
-                }`}
-              >
-                {category.name} ({category.count})
-              </button>
-            ))}
+    <>
+      <Helmet>
+        <title>גלריית הצעות נישואין בירושלים - תמונות ווידאו אמיתיים | 2025</title>
+        <meta name="description" content="צפו בגלריית הצעות נישואין מרהיבות בירושלים: כותל, ימין משה, טיילת ארמון הנציב ועוד. תמונות ווידאו אמיתיים מלקוחות מרוצים." />
+        <link rel="canonical" href="https://jerusalemproposals.co.il/gallery" />
+        
+        <script type="application/ld+json">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ImageGallery",
+            "name": "גלריית הצעות נישואין בירושלים",
+            "description": "גלריה של הצעות נישואין מרהיבות בירושלים",
+            "url": "https://jerusalemproposals.co.il/gallery"
+          })}
+        </script>
+      </Helmet>
+      
+      <div className="min-h-screen bg-gray-50">
+        {/* Breadcrumb */}
+        <div className="bg-white border-b border-gray-200">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <nav className="flex items-center space-x-reverse space-x-2 text-sm">
+              <Link to="/" className="text-blue-600 hover:text-blue-800">בית</Link>
+              <ArrowRight className="w-4 h-4 text-gray-400 rotate-180" />
+              <span className="text-gray-900 font-medium">גלריה</span>
+            </nav>
           </div>
         </div>
-      </section>
 
-      {/* Gallery Grid */}
-      <section className="pb-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {filteredItems.map((item) => (
-              <div
-                key={item.id}
-                className="group relative bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer"
-                onClick={() => setSelectedMedia(item)}
-              >
-                <div className="relative h-64 overflow-hidden">
-                  <img
-                    src={item.type === 'video' ? item.thumbnail : item.src}
-                    alt={item.alt}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                  
-                  {item.type === 'video' && (
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center shadow-lg">
-                        <Play className="w-8 h-8 text-blue-600 mr-1" fill="currentColor" />
-                      </div>
-                    </div>
-                  )}
-
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                  
-                  <div className="absolute bottom-4 right-4 left-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="font-semibold">{item.couple}</div>
-                    <div className="text-sm text-white/80">{item.location}</div>
-                  </div>
-                </div>
-              </div>
-            ))}
+        {/* Header */}
+        <section className="py-16 bg-gradient-to-br from-blue-50 to-indigo-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div className="flex items-center justify-center space-x-reverse space-x-2 mb-4">
+              <Heart className="w-8 h-8 text-red-500" fill="currentColor" />
+              <span className="text-lg font-medium text-gray-600">רגעים מיוחדים</span>
+            </div>
+            <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-4">
+              גלריית הצעות נישואין
+            </h1>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              כל תמונה מספרת סיפור של אהבה, רגש והרגע הכי חשוב בחיים
+            </p>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Modal */}
-      {selectedMedia && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90">
-          <div className="relative max-w-4xl max-h-[90vh] bg-white rounded-2xl overflow-hidden">
-            <button
-              onClick={() => setSelectedMedia(null)}
-              className="absolute top-4 left-4 z-10 w-10 h-10 bg-white/90 rounded-full flex items-center justify-center hover:bg-white transition-colors duration-200"
-            >
-              <X className="w-6 h-6 text-gray-700" />
-            </button>
-
-            {selectedMedia.type === 'video' ? (
-              <div className="aspect-video">
-                <iframe
-                  src={selectedMedia.src}
-                  className="w-full h-full"
-                  allow="autoplay; fullscreen"
-                />
-              </div>
-            ) : (
-              <img
-                src={selectedMedia.src}
-                alt={selectedMedia.alt}
-                className="w-full h-auto max-h-[80vh] object-contain"
-              />
-            )}
-
-            <div className="p-6">
-              <h3 className="text-xl font-bold text-gray-900 mb-2">{selectedMedia.couple}</h3>
-              <p className="text-gray-600">{selectedMedia.location}</p>
+        {/* Category Filter */}
+        <section className="py-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-center space-x-reverse space-x-4">
+              {categories.map((category) => (
+                <button
+                  key={category.id}
+                  onClick={() => setActiveCategory(category.id)}
+                  className={`px-6 py-3 rounded-xl font-semibold transition-all duration-300 ${
+                    activeCategory === category.id
+                      ? 'bg-blue-800 text-white shadow-lg'
+                      : 'bg-white text-gray-700 hover:bg-gray-50 shadow-sm'
+                  }`}
+                >
+                  {category.name} ({category.count})
+                </button>
+              ))}
             </div>
           </div>
-        </div>
-      )}
-    </div>
+        </section>
+
+        {/* Gallery Grid */}
+        <section className="pb-20">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              {filteredItems.map((item) => (
+                <div
+                  key={item.id}
+                  className="group relative bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 hover:scale-105 cursor-pointer"
+                  onClick={() => setSelectedMedia(item)}
+                >
+                  <div className="relative h-64 overflow-hidden">
+                    <img
+                      src={item.type === 'video' ? item.thumbnail : item.src}
+                      alt={item.alt}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    
+                    {item.type === 'video' && (
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="w-16 h-16 bg-white/90 rounded-full flex items-center justify-center shadow-lg">
+                          <Play className="w-8 h-8 text-blue-600 mr-1" fill="currentColor" />
+                        </div>
+                      </div>
+                    )}
+
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    
+                    <div className="absolute bottom-4 right-4 left-4 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <div className="font-semibold">{item.couple}</div>
+                      <div className="text-sm text-white/80">{item.location}</div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Modal */}
+        {selectedMedia && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/90">
+            <div className="relative max-w-4xl max-h-[90vh] bg-white rounded-2xl overflow-hidden">
+              <button
+                onClick={() => setSelectedMedia(null)}
+                className="absolute top-4 left-4 z-10 w-10 h-10 bg-white/90 rounded-full flex items-center justify-center hover:bg-white transition-colors duration-200"
+              >
+                <X className="w-6 h-6 text-gray-700" />
+              </button>
+
+              {selectedMedia.type === 'video' ? (
+                <div className="aspect-video">
+                  <iframe
+                    src={selectedMedia.src}
+                    className="w-full h-full"
+                    allow="autoplay; fullscreen"
+                  />
+                </div>
+              ) : (
+                <img
+                  src={selectedMedia.src}
+                  alt={selectedMedia.alt}
+                  className="w-full h-auto max-h-[80vh] object-contain"
+                />
+              )}
+
+              <div className="p-6">
+                <h3 className="text-xl font-bold text-gray-900 mb-2">{selectedMedia.couple}</h3>
+                <p className="text-gray-600">{selectedMedia.location}</p>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    </>
   );
 }
